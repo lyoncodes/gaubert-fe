@@ -7,7 +7,6 @@ class List {
   populate(nodes) {
     for (let i = nodes.length; i--; this.dataStore.unshift(nodes[i]));
     this.listSize = this.dataStore.length
-    console.log(this.dataStore)
     this.show()
   }
   show() {
@@ -44,13 +43,13 @@ class List {
     return (this.pos <= 0) ? false : true
   }
   hidePrev(){
-    this.dataStore[this.pos - 1].style.display = 'none'
+    this.dataStore[this.pos - 1].node.style.display = 'none'
   }
   hideNext(){
-    this.dataStore[this.pos + 1].style.display = 'none'
+    this.dataStore[this.pos + 1].node.style.display = 'none'
   }
   hideLast(){
-    this.dataStore[this.dataStore.length - 1].style.display = 'none'
+    this.dataStore[this.dataStore.length - 1].node.style.display = 'none'
   }
 }
 
@@ -90,7 +89,6 @@ function nodeId (type, node, DOMId, idx, el) {
   let id = document.createAttribute('id')
   id.value = `${DOMId}${idx + 1}`
   node.setAttributeNode(id)
-
   type === 'a' ? defineNodeAttribute(node, 'href', el.href) : defineNodeAttribute(node, 'style', 'display: none')
 }
 
@@ -99,7 +97,6 @@ function newNode (type, DOMId, el, idx) {
   nodeId(type, node, DOMId, idx, el)
   return { node }
 }
-
 
 let carousel = new List()
 let nodeList = []
@@ -119,15 +116,19 @@ nodeList.forEach((el, idx) => {
   el.node.appendChild(review)
 })
 
-let app = document.getElementById('root')
-
-
 carousel.populate(nodeList)
+
+let app = document.getElementById('root')
 
 for (let i = 0; i < carousel.dataStore.length; i++){
   app.appendChild(carousel.dataStore[i].node)
 }
 
-console.log(carousel)
+document.querySelector('.prev').addEventListener('click', () => {
+  carousel.prev();
+  clearInterval(cycle);
+});
 
-console.log(app)
+document.querySelector('.next').addEventListener('click', () => {
+  carousel.next();
+});
