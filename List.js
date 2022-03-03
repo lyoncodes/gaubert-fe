@@ -8,11 +8,11 @@ class List {
     for (let i = nodes.length; i--; this.dataStore.unshift(nodes[i]));
     this.listSize = this.dataStore.length
     console.log(this.dataStore)
-    // this.show()
+    this.show()
   }
-  // show() {
-  //   this.dataStore[this.pos] ? this.dataStore[this.pos].style.display = 'inline' : null;
-  // }
+  show() {
+    this.dataStore[this.pos] ? this.dataStore[this.pos].node.style.display = 'inline' : null;
+  }
   increment() {
     this.pos ++
     this.hidePrev()
@@ -100,15 +100,27 @@ function newNode (type, DOMId, el, idx) {
   return { node }
 }
 
-let app = document.getElementById('root')
 
+let carousel = new List()
 let nodeList = []
 
 carousel_data.forEach((el, idx) => {
   nodeList.push(newNode('div','carousel-item', el, idx))
 })
 
-let carousel = new List()
+nodeList.forEach((el, idx) => {
+  let img = document.createElement('img')
+  let review = document.createElement('p')
+  
+  img.src = carousel_data[idx].src
+  review.innerText = carousel_data[idx].text
+  
+  el.node.appendChild(img)
+  el.node.appendChild(review)
+})
+
+let app = document.getElementById('root')
+
 
 carousel.populate(nodeList)
 
