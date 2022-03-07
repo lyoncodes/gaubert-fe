@@ -14,6 +14,10 @@ body{
   clear: both;
   display: table;
 }
+.flex-row{
+  display: flex;
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -32,20 +36,28 @@ p {
   margin-top: 0;
 }
 
-
 /* Buttons */
 button {
-  background: #003b0d;
-  border: 1px solid #003b0d;
+  background: #004f11;
+  border: 1px solid #004f11;
   border-radius: 45px;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 900;
   line-height: 45px;
   padding: 0.25rem;
-  width: 15%;
+  width: 80%;
+  transition: all .4s ease-in-out;
+}
+button:hover{
+  cursor: pointer;
+  background: #003b0d;
 }
 .c-btn{
   background-color: #fff;
   border: 3px solid #004f11;
+  border: 1px solid #003b0d;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   border-radius: 100%;
   color: #39393a !important;
@@ -56,7 +68,46 @@ button {
   z-index: 0;
 }
 
+/* cards */
+.card-container{
+  display: flex;
+  column-gap: 25px;
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
+}
+.card > h1{
+  margin-top: .25em;
+}
+
+/* header logo */
+.heading-logo{
+  height: 125px;
+}
+
+/* carousel container */
+/* mods */
+.center{
+  justify-content: center;
+}
+.g-15{
+  column-gap: 15px;
+}
+
+ul{
+  list-style: none;
+}
+ul > li{
+  margin-bottom: 1em;
+}
+
+
 @media screen and (max-width: 1244px) {
+  .card-container {
+    display: inline-block;
+  }
   .col-md-1 {width: 8.33%;}
   .col-md-2 {width: 16.66%;}
   .col-md-3 {width: 25%;}
