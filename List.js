@@ -53,6 +53,11 @@ class List {
   }
 }
 
+// class DOMfactory {
+//   constructor () {
+
+//   }
+// }
 
 const carousel_data = [
     {
@@ -77,29 +82,65 @@ const carousel_data = [
     }
 ]
 
+// DOM Node Factory
+appendClasses = (el, styleClasses, op) => {
+  styleClasses.forEach((classStyle) => {
+    op === 'add' ? el.classList.add(classStyle) : 
+    op === 'remove' ? el.classList.remove(classStyle): null
+  })
+}
 
-
-function defineNodeAttribute (node, attr, value) {
+defineNodeAttribute = (node, attr, value) => {
   let link = document.createAttribute(attr)
   link.value = value
   node.setAttributeNode(link)
 }
 
-function nodeId (type, node, DOMId, idx, el) {
+nodeId = (type, node, DOMId, idx, el) => {
   let id = document.createAttribute('id')
   id.value = `${DOMId}${idx + 1}`
   node.setAttributeNode(id)
-  type === 'a' ? defineNodeAttribute(node, 'href', el.href) : defineNodeAttribute(node, 'style', 'display: none')
+  DOMId === 'carousel-item' ? defineNodeAttribute(node, 'style', 'display: none') : appendClasses(node, ['inactive'], 'add')
 }
 
-function newNode (type, DOMId, el, idx) {
+newNode = (type, DOMId, el, idx) => {
   let node = document.createElement(type)
   nodeId(type, node, DOMId, idx, el)
   return { node }
 }
 
+togglePrevious = (idx) => {
+  appendClasses(counterRoot.children[idx], ['active'], 'remove')
+  appendClasses(counterRoot.children[idx], ['inactive'], 'add')
+}
+
+toggleNext = (idx) => {
+  appendClasses(counterRoot.children[idx], ['inactive'], 'remove')
+  appendClasses(counterRoot.children[idx], ['active'], 'add')
+}
+
+incrementCounter = (idx) => {
+  if (idx) {
+    togglePrevious(idx - 1)
+    toggleNext(idx)
+  } else {
+    togglePrevious(carousel.listSize - 1)
+    toggleNext(idx)
+  }
+}
+
+decrementCounter = (idx) => {
+  togglePrevious(idx + 1)
+  toggleNext(idx)
+}
+
+// ====================
+
+// DOM appendage  ====================
 let carousel = new List()
 let nodeList = []
+let counterRoot = document.getElementById('counter')
+let root = document.getElementById('root')
 
 carousel_data.forEach((el, idx) => {
   nodeList.push(newNode('div','carousel-item', el, idx))
@@ -108,27 +149,49 @@ carousel_data.forEach((el, idx) => {
 nodeList.forEach((el, idx) => {
   let img = document.createElement('img')
   let review = document.createElement('p')
+  let counter = newNode('div', 'counter-item', {}, idx)
   
   img.src = carousel_data[idx].src
   review.innerText = carousel_data[idx].text
   
   el.node.appendChild(img)
   el.node.appendChild(review)
+  counterRoot.appendChild(counter.node)
 })
 
 carousel.populate(nodeList)
 
-let app = document.getElementById('root')
-
 for (let i = 0; i < carousel.dataStore.length; i++){
-  app.appendChild(carousel.dataStore[i].node)
+  root.appendChild(carousel.dataStore[i].node)
 }
 
-document.querySelector('.prev').addEventListener('click', () => {
-  carousel.prev();
-  clearInterval(cycle);
-});
+toggleNext(0)
 
 document.querySelector('.next').addEventListener('click', () => {
   carousel.next();
+  incrementCounter(carousel.pos);
 });
+
+document.querySelector('.prev').addEventListener('click', () => {
+  carousel.prev();
+  decrementCounter(carousel.pos);
+  // clearInterval(cycle);
+});
+
+
+// ====================
+
+// Responsive Layout Handlers
+let resizeHandler = () => {
+  let el = document.getElementById("desktop")
+  let classArr = ['flex-row', 'center', 'g-15']
+
+  if(window.innerWidth > 750){
+    appendClasses(el, classArr, 'add')
+  } else {
+    appendClasses(el, classArr, 'remove')
+  }
+}
+
+window.onresize = resizeHandler;
+// ====================

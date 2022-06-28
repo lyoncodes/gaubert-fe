@@ -35,8 +35,14 @@ body{
 p {
   margin-top: 0;
 }
+ul{
+  list-style: none;
+}
+ul > li{
+  margin-bottom: 1em;
+}
 
-/* Buttons */
+/* buttons */
 button {
   background: #004f11;
   border: 1px solid #004f11;
@@ -87,20 +93,27 @@ button:hover{
   height: 125px;
 }
 
-/* carousel container */
 /* mods */
-.center{
-  justify-content: center;
-}
 .g-15{
   column-gap: 15px;
 }
-
-ul{
-  list-style: none;
+.center{
+  justify-content: center;
 }
-ul > li{
-  margin-bottom: 1em;
+
+/* carousel */
+#counter > * {
+  border-radius: 50%;
+  border: 1px solid #003b0d;
+  background-color: #fff;
+  width: 25px;
+  height: 25px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+#counter .active {
+  background-color: #003b0d;
+  border: 5px solid #003b0d;
 }
 
 
