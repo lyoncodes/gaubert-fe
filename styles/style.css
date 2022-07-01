@@ -24,7 +24,7 @@ body{
 .col-4 {width: 33.33%;}
 .col-5 {width: 41.66%;}
 .col-6 {width: 50%;}
-.col-7 {width: 58.33%;}å
+.col-7 {width: 58.33%;}
 .col-8 {width: 66.66%;}
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
@@ -60,6 +60,10 @@ button:hover{
   cursor: pointer;
   background: #003b0d;
 }
+.c-container{
+  display: flex;
+  justify-content: space-evenly;
+}
 .c-btn{
   background-color: #fff;
   border: 3px solid #004f11;
@@ -67,10 +71,11 @@ button:hover{
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   border-radius: 100%;
   color: #39393a !important;
+  display: inline-block;
   line-height: 1;
   transition: box-shadow 0.3s ease;
-  height: 55px;
-  width: 55px;
+  height: 30px;
+  width: 30px;
   z-index: 0;
 }
 
@@ -94,14 +99,38 @@ button:hover{
 }
 
 /* mods */
+.mt-1{
+  margin-top: 1em;
+}
+
+.p-0{
+  padding: 0;
+}
+
 .g-15{
   column-gap: 15px;
 }
 .center{
   justify-content: center;
 }
+.middle{
+  align-items: center;
+}
 
 /* carousel */
+#root img {
+  height: 287px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
+}
+
+#root p {
+  margin-top: 1.5em;
+  width: 400px;
+  height: 175px;
+}
+
 #counter > * {
   border-radius: 50%;
   border: 1px solid #003b0d;
@@ -117,9 +146,12 @@ button:hover{
 }
 
 
-@media screen and (max-width: 1244px) {
+@media screen and (max-width: 1600px) {
   .card-container {
     display: inline-block;
+  }
+  #root img {
+    height: 200px;
   }
   .col-md-1 {width: 8.33%;}
   .col-md-2 {width: 16.66%;}
@@ -133,4 +165,7 @@ button:hover{
   .col-md-10 {width: 83.33%;}
   .col-md-11 {width: 91.66%;}
   .col-md-12 {width: 100%;}
+}
+@media screen and (max-width: 2200px) {
+
 }

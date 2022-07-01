@@ -4,10 +4,9 @@ class List {
     this.pos = 0;
     this.dataStore = [];
   }
-  populate(nodes) {
-    for (let i = nodes.length; i--; this.dataStore.unshift(nodes[i]));
+  insert(node){
+    this.dataStore.unshift(node)
     this.listSize = this.dataStore.length
-    this.show()
   }
   show() {
     this.dataStore[this.pos] ? this.dataStore[this.pos].node.style.display = 'inline' : null;
@@ -58,27 +57,48 @@ class List {
 
 //   }
 // }
+let path = 'assets/graphics/imgs/';
 
 const carousel_data = [
     {
-      src: '',
-      text: '"We feel so lucky to have found Ben. His patience, strong network, hard-work and clear guidance were invaluable in helping us purchase our first home in an intimidating seller\'s market. Throughout the process, he was understanding, communicative, dependable, and we never felt pressured or rushed into making any decisions."'
+      img: {
+        src: `${path}nice-house.jpg`
+      },
+      p: {
+        src: '"We feel so lucky to have found Ben. His patience, strong network, hard-work and clear guidance were invaluable in helping us purchase our first home in an intimidating seller\'s market. Throughout the process, he was understanding, communicative, dependable, and we never felt pressured or rushed into making any decisions."'
+      }
     },
     {
-      src: '',
-      text: '"Ben was an amazing agent for us. He knew the area very well and went above and beyond on helping us sell our house. He was extremely communicative, which was especially helpful for us because we live out of town. He dropped everything multiple times to answer our questions or requests. He is positive and energetic, and we loved his personality!"',
+      img: {
+        src: `${path}courtyard.jpg`
+      },
+      p: {
+        src: '"Ben was an amazing agent for us. He knew the area very well and went above and beyond on helping us sell our house. He was extremely communicative, which was especially helpful for us because we live out of town. He dropped everything multiple times to answer our questions or requests. He is positive and energetic, and we loved his personality!"'
+      }
     },
     {
-      src: '',
-      text: '"Ben gave us sound advice. Whenever a problem arose with the preparation and marketing of our home, Ben was on top of it with a \'can-do\' and enthusiastic plan. At our first meeting, Ben got out of his car and saved my wife and me $10,000. Would I recommend Ben to friends or family? darn tootin! If I were trying to buy a house in Olympia, Ben would be my agent!"',
+      img: {
+        src: `${path}kitchen-island.jpeg`
+      },
+      p: {
+        src: '"Ben gave us sound advice. Whenever a problem arose with the preparation and marketing of our home, Ben was on top of it with a \'can-do\' and enthusiastic plan. At our first meeting, Ben got out of his car and saved my wife and me $10,000. Would I recommend Ben to friends or family? darn tootin! If I were trying to buy a house in Olympia, Ben would be my agent!"'
+      }
     },
     {
-      src: '',
-      text: '"Ben is awesome - he has helped me buy and sell 2 homes in Olympia and Ocean Shores. His in-depth knowledge of the South Sound makes him an invaluable resource He\'s a negotiation pro and goes above and beyond in every way  - including helping to relocate a massive antique stove, making the trek out to the beach,and navigating details of a house sale and purchase!"',
+      img: {
+        src: `${path}backyard.jpeg`
+      },
+      p: {
+        src: '"Ben is awesome - he has helped me buy and sell 2 homes in Olympia and Ocean Shores. His in-depth knowledge of the South Sound makes him an invaluable resource He\'s a negotiation pro and goes above and beyond in every way  - helping to relocate a massive antique stove, making the trek out to the beach,and navigating details of a house sale and purchase!"'
+      }
     },
     {
-      src: '',
-      text: '"We were lucky to find Ben for our first home. He was always available when we wanted to see a home even if it was last minute. He is extremely knowledgeable on building practices and products which was comforting as first time home buyers. If you\'re looking for someone who is respectful, knowledgeable and fun to be around, Ben is the right person for you."',
+      img: {
+        src: `${path}sub-house.jpg`
+      },
+      p: {
+        src: '"We were lucky to find Ben for our first home. He was always available when we wanted to see a home even if it was last minute. He is extremely knowledgeable on building practices and products which was comforting as first time home buyers. If you\'re looking for someone who is respectful, knowledgeable and fun to be around, Ben is the right person for you."'
+      }
     }
 ]
 
@@ -90,24 +110,39 @@ appendClasses = (el, styleClasses, op) => {
   })
 }
 
+applyContainer = (el, classes, op, content) => {
+  let container = document.createElement('div')
+  let asset = document.createElement(el)
+  appendClasses(container, classes, op)
+  
+  el === 'img' ? asset.src = content:
+  el === 'p' ? asset.innerText = content : null
+
+  container.appendChild(asset)
+  return container
+}
+
 defineNodeAttribute = (node, attr, value) => {
   let link = document.createAttribute(attr)
   link.value = value
   node.setAttributeNode(link)
 }
 
-nodeId = (type, node, DOMId, idx, el) => {
+nodeId = (node, DOMId, idx) => {
   let id = document.createAttribute('id')
-  id.value = `${DOMId}${idx + 1}`
+  id.value = `${DOMId}-${idx + 1}`
   node.setAttributeNode(id)
   DOMId === 'carousel-item' ? defineNodeAttribute(node, 'style', 'display: none') : appendClasses(node, ['inactive'], 'add')
 }
 
-newNode = (type, DOMId, el, idx) => {
+newNode = (type, DOMId, idx) => {
   let node = document.createElement(type)
-  nodeId(type, node, DOMId, idx, el)
+  nodeId(node, DOMId, idx)
   return { node }
 }
+// ====================
+
+// Counter Toggles
 
 togglePrevious = (idx) => {
   appendClasses(counterRoot.children[idx], ['active'], 'remove')
@@ -133,39 +168,27 @@ decrementCounter = (idx) => {
   togglePrevious(idx + 1)
   toggleNext(idx)
 }
-
 // ====================
 
 // DOM appendage  ====================
 let carousel = new List()
-let nodeList = []
 let counterRoot = document.getElementById('counter')
 let root = document.getElementById('root')
 
-carousel_data.forEach((el, idx) => {
-  nodeList.push(newNode('div','carousel-item', el, idx))
-})
+for (let i = 0; i < carousel_data.length; i++) {
+  let parent = newNode('div', 'carousel-item', i)
 
-nodeList.forEach((el, idx) => {
-  let img = document.createElement('img')
-  let review = document.createElement('p')
-  let counter = newNode('div', 'counter-item', {}, idx)
+  for (let j = 0; j < Object.keys(carousel_data[i]).length; j++) {
+    let child = applyContainer(Object.keys(carousel_data[i])[j], ['flex-row', 'center'], 'add', Object.values(carousel_data[i])[j].src)
+    parent.node.appendChild(child)
+  }
+
+  carousel.insert(parent)
   
-  img.src = carousel_data[idx].src
-  review.innerText = carousel_data[idx].text
-  
-  el.node.appendChild(img)
-  el.node.appendChild(review)
+  let counter = newNode('div', 'counter-item', {}, i)
   counterRoot.appendChild(counter.node)
-})
-
-carousel.populate(nodeList)
-
-for (let i = 0; i < carousel.dataStore.length; i++){
-  root.appendChild(carousel.dataStore[i].node)
+  root.appendChild(parent.node)
 }
-
-toggleNext(0)
 
 document.querySelector('.next').addEventListener('click', () => {
   carousel.next();
@@ -193,5 +216,8 @@ let resizeHandler = () => {
   }
 }
 
+toggleNext(0)
+carousel.show()
+resizeHandler();
 window.onresize = resizeHandler;
 // ====================
