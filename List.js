@@ -9,7 +9,8 @@ class List {
     this.listSize = this.dataStore.length
   }
   show() {
-    this.dataStore[this.pos] ? this.dataStore[this.pos].node.style.display = 'inline' : null;
+    this.dataStore[this.pos] ? this.dataStore[this.pos].img.style.display = 'inline' : null;
+    this.dataStore[this.pos] ? this.dataStore[this.pos].p.style.display = 'inline' : null;
   }
   increment() {
     this.pos ++
@@ -42,13 +43,16 @@ class List {
     return (this.pos <= 0) ? false : true
   }
   hidePrev(){
-    this.dataStore[this.pos - 1].node.style.display = 'none'
+    this.dataStore[this.pos - 1].p.style.display = 'none'
+    this.dataStore[this.pos - 1].img.style.display = 'none'
   }
   hideNext(){
-    this.dataStore[this.pos + 1].node.style.display = 'none'
+    this.dataStore[this.pos + 1].p.style.display = 'none'
+    this.dataStore[this.pos + 1].img.style.display = 'none'
   }
   hideLast(){
-    this.dataStore[this.dataStore.length - 1].node.style.display = 'none'
+    this.dataStore[this.dataStore.length - 1].p.style.display = 'none'
+    this.dataStore[this.dataStore.length - 1].img.style.display = 'none'
   }
 }
 
@@ -110,11 +114,11 @@ appendClasses = (el, styleClasses, op) => {
   })
 }
 
-applyContainer = (el, classes, op, content) => {
+createContainer = (el, classes, op, content) => {
   let container = document.createElement('div')
   let asset = document.createElement(el)
   appendClasses(container, classes, op)
-  
+
   el === 'img' ? asset.src = content:
   el === 'p' ? asset.innerText = content : null
 
@@ -132,7 +136,9 @@ nodeId = (node, DOMId, idx) => {
   let id = document.createAttribute('id')
   id.value = `${DOMId}-${idx + 1}`
   node.setAttributeNode(id)
-  DOMId === 'carousel-item' ? defineNodeAttribute(node, 'style', 'display: none') : appendClasses(node, ['inactive'], 'add')
+  DOMId.includes('carousel-img') ? defineNodeAttribute(node, 'style', 'display: none') : 
+  DOMId.includes('carousel-review') ? defineNodeAttribute(node, 'style', 'display: none') : 
+  DOMId.includes('counter-item') ? appendClasses(node, ['inactive'], 'add') : null
 }
 
 newNode = (type, DOMId, idx) => {
@@ -172,22 +178,32 @@ decrementCounter = (idx) => {
 
 // DOM appendage  ====================
 let carousel = new List()
+let carouselRoot = document.getElementById('carousel')
+let carouselImgs = document.getElementById('carousel-imgs')
+let carouselReviews = document.getElementById('carousel-reviews')
 let counterRoot = document.getElementById('counter')
-let root = document.getElementById('root')
 
 for (let i = 0; i < carousel_data.length; i++) {
-  let parent = newNode('div', 'carousel-item', i)
 
-  for (let j = 0; j < Object.keys(carousel_data[i]).length; j++) {
-    let child = applyContainer(Object.keys(carousel_data[i])[j], ['flex-row', 'center'], 'add', Object.values(carousel_data[i])[j].src)
-    parent.node.appendChild(child)
-  }
+  let item = {}
 
-  carousel.insert(parent)
+  let img = newNode(Object.keys(carousel_data[i])[0], 'carousel-img', i)
+  defineNodeAttribute(img.node, 'src', Object.values(carousel_data[i])[0].src)
   
-  let counter = newNode('div', 'counter-item', {}, i)
+  let review = newNode(Object.keys(carousel_data[i])[1], 'carousel-review', i)
+  review.node.innerText = Object.values(carousel_data[i])[1].src
+
+  carouselImgs.appendChild(img.node)
+  carouselReviews.appendChild(review.node)
+  
+  item.p = review.node
+  item.img = img.node
+  
+  carousel.insert(item)
+  
+  let counter = newNode('div', 'counter-item', i)
   counterRoot.appendChild(counter.node)
-  root.appendChild(parent.node)
+
 }
 
 document.querySelector('.next').addEventListener('click', () => {
