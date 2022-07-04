@@ -45,7 +45,6 @@ ul > li{
 /* buttons */
 button {
   background: #004f11;
-  border: 1px solid #004f11;
   border-radius: 45px;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   color: #fff;
@@ -58,25 +57,28 @@ button {
 }
 button:hover{
   cursor: pointer;
-  background: #003b0d;
 }
 .c-container{
   display: flex;
   justify-content: space-evenly;
 }
 .c-btn{
-  background-color: #fff;
-  border: 3px solid #004f11;
-  border: 1px solid #003b0d;
+  background-color: rgba(255, 255, 255, 0.594);
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   border-radius: 100%;
+  border: 0px;
   color: #39393a !important;
   display: inline-block;
+  font-size: 10px;
   line-height: 1;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  text-align: center;
   height: 30px;
   width: 30px;
   z-index: 0;
+}
+.c-btn:hover{
+  background-color: #ffffffe1;
 }
 
 /* cards */
@@ -118,6 +120,36 @@ button:hover{
 }
 
 /* carousel */
+.image-holder{
+  position: relative;
+  width: 89%;
+}
+
+img[id^='carousel-img-']{
+  width: 100%;
+  height: auto;
+}
+
+.image-holder .next {
+  top: 50%;
+  left: 88%;
+}
+
+.image-holder .prev {
+  top: 50%;
+  left: 2%;
+}
+
+#counter {
+  bottom: 2%;
+  left: 30%;
+  right: 30%;
+}
+
+.image-holder .prev, .image-holder .next, #counter {
+  position: absolute;
+}
+
 #root img {
   height: 287px;
   width: 100%;
@@ -126,27 +158,24 @@ button:hover{
 }
 
 #root p {
-  margin-top: 1.5em;
+  margin-top: 3em;
   width: 400px;
   height: 175px;
 }
 
 #counter > * {
-  border-radius: 50%;
-  border: 1px solid #003b0d;
-  background-color: #fff;
-  width: 25px;
-  height: 25px;
+  background-color: #ffffffb6;
+  width: 10px;
+  height: 10px;
   margin-left: 2px;
   margin-right: 2px;
 }
 #counter .active {
-  background-color: #003b0d;
-  border: 5px solid #003b0d;
+  background-color: #ffffff;
 }
 
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1250px) {
   .card-container {
     display: inline-block;
   }
@@ -166,6 +195,6 @@ button:hover{
   .col-md-11 {width: 91.66%;}
   .col-md-12 {width: 100%;}
 }
-@media screen and (max-width: 2200px) {
+/* @media screen and (max-width: 2200px) {
 
-}
+} */
