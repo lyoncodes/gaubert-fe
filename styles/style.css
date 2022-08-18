@@ -1,5 +1,5 @@
 * {
-  font-family: 'verdana', -agent-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Montserrat', 'verdana', -agent-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   box-sizing: border-box;
 }
 body{
@@ -17,7 +17,7 @@ body{
 .flex-row{
   display: flex;
 }
-
+/* Column System */
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -41,18 +41,22 @@ ul{
 ul > li{
   margin-bottom: 1em;
 }
-
+/* backgrounds */
+#bg{
+  background-image: url(../assets/graphics/imgs/house-bg.jpg);
+}
 /* buttons */
 button {
   background: #004f11;
-  border-radius: 45px;
+  border: none;
+  border-radius: 7px;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   color: #fff;
   font-size: 1.25rem;
   font-weight: 900;
   line-height: 45px;
   padding: 0.25rem;
-  width: 80%;
+  width: 8em;
   transition: all .4s ease-in-out;
 }
 button:hover{
@@ -82,17 +86,32 @@ button:hover{
 }
 
 /* cards */
-.card-container{
+.card, .card-container {
   display: flex;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.card-container{
   column-gap: 25px;
 }
 .card{
-  display: flex;
+  background-color: #ffffff;
+  border-radius: 3%;
   flex-direction: column;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
+  padding-bottom: 3em;
 }
+
+.card > .flex-row {
+  margin-top: 1em;
+}
+
 .card > h1{
   margin-top: .25em;
+}
+
+.card-icon{
+  height: 30px;
 }
 
 /* header logo */
@@ -120,12 +139,12 @@ button:hover{
 }
 
 /* carousel */
-.image-holder{
+.image-holder {
   position: relative;
   width: 89%;
 }
 
-img[id^='carousel-img-']{
+img[id^='carousel-img-'] {
   width: 100%;
   height: auto;
 }
@@ -138,12 +157,6 @@ img[id^='carousel-img-']{
 .image-holder .prev {
   top: 50%;
   left: 2%;
-}
-
-#counter {
-  bottom: 2%;
-  left: 30%;
-  right: 30%;
 }
 
 .image-holder .prev, .image-holder .next, #counter {
@@ -163,6 +176,17 @@ img[id^='carousel-img-']{
   height: 175px;
 }
 
+#carousel-reviews {
+  padding: 1em;
+}
+
+#counter {
+  bottom: 2%;
+  left: 30%;
+  right: 30%;
+  padding-bottom: .25em;
+}
+
 #counter > * {
   background-color: #ffffffb6;
   width: 10px;
@@ -176,6 +200,9 @@ img[id^='carousel-img-']{
 
 
 @media screen and (max-width: 1250px) {
+  button{
+    width: 60%;
+  }
   .card-container {
     display: inline-block;
   }
