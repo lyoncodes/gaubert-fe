@@ -56,11 +56,50 @@ class List {
   }
 }
 
-// class DOMfactory {
-//   constructor () {
+function UIComponent(type, name){
+  this.node = document.createElement(type);
+  this.name = name;
 
-//   }
-// }
+  createId = (name) => {
+    let serial = Math.round((Math.random() * 1000));
+    return `${name}-${serial}`
+  }
+
+  createUIAttribute = (node, attr, value) => {
+    let appendage = document.createAttribute(attr);
+    appendage.value = value;
+    node.setAttributeNode(appendage);
+  }
+
+  this.assignId = () => {
+    let id = document.createAttribute('id');
+    id.value = createId(this.name);
+    this.node.setAttributeNode(id);
+  }
+
+  this.setAttribute = (attr, value) => {
+    createUIAttribute(this.node, attr, value)
+  }
+
+  this.get = () => {
+    return this.node;
+  }
+}
+
+function Carousel(){
+  this.list = new List();
+  this.counter = [];
+  
+  this.createCounter = () => {
+    let i = this.list.listSize
+    while (i > 0) {
+      this.counter.push(new UIComponent('div', 'counter-item'));
+      i --;
+    }
+  }
+}
+
+
 let path = 'assets/graphics/imgs/';
 
 const carousel_data = [
@@ -106,49 +145,26 @@ const carousel_data = [
     }
 ]
 
-// DOM Node Factory
+// Helpers
+
 appendClasses = (el, styleClasses, op) => {
+  
+  // ==========
+  // appends or removes an array of classes
+  // based on the string passed as 'op' variable
+  // ==========
+  
   styleClasses.forEach((classStyle) => {
     op === 'add' ? el.classList.add(classStyle) : 
     op === 'remove' ? el.classList.remove(classStyle): null
   })
 }
 
-createContainer = (el, classes, op, content) => {
-  let container = document.createElement('div')
-  let asset = document.createElement(el)
-  appendClasses(container, classes, op)
-
-  el === 'img' ? asset.src = content:
-  el === 'p' ? asset.innerText = content : null
-
-  container.appendChild(asset)
-  return container
-}
-
-defineNodeAttribute = (node, attr, value) => {
-  let link = document.createAttribute(attr)
-  link.value = value
-  node.setAttributeNode(link)
-}
-
-nodeId = (node, DOMId, idx) => {
-  let id = document.createAttribute('id')
-  id.value = `${DOMId}-${idx + 1}`
-  node.setAttributeNode(id)
-  DOMId.includes('carousel-img') ? defineNodeAttribute(node, 'style', 'display: none') : 
-  DOMId.includes('carousel-review') ? defineNodeAttribute(node, 'style', 'display: none') : 
-  DOMId.includes('counter-item') ? appendClasses(node, ['inactive'], 'add') : null
-}
-
-newNode = (type, DOMId, idx) => {
-  let node = document.createElement(type)
-  nodeId(node, DOMId, idx)
-  return { node }
-}
 // ====================
-
-// Counter Toggles
+// togglePrevious
+// toggleNext
+// incrementCounter
+// decrementCounter
 
 togglePrevious = (idx) => {
   appendClasses(counterRoot.children[idx], ['active'], 'remove')
@@ -165,7 +181,7 @@ incrementCounter = (idx) => {
     togglePrevious(idx - 1)
     toggleNext(idx)
   } else {
-    togglePrevious(carousel.listSize - 1)
+    togglePrevious(carousel.list.listSize - 1)
     toggleNext(idx)
   }
 }
@@ -177,43 +193,48 @@ decrementCounter = (idx) => {
 // ====================
 
 // DOM appendage  ====================
-let carousel = new List()
-let carouselRoot = document.getElementById('carousel')
-let carouselImgs = document.getElementById('carousel-imgs')
-let carouselReviews = document.getElementById('carousel-reviews')
-let counterRoot = document.getElementById('counter')
+let carouselRoot = document.getElementById('carousel');
+let carouselImgs = document.getElementById('carousel-imgs');
+let carouselReviews = document.getElementById('carousel-reviews');
+let counterRoot = document.getElementById('counter');
+
+let carousel = new Carousel();
 
 for (let i = 0; i < carousel_data.length; i++) {
-
-  let item = {}
-
-  let img = newNode(Object.keys(carousel_data[i])[0], 'carousel-img', i)
-  defineNodeAttribute(img.node, 'src', Object.values(carousel_data[i])[0].src)
+  let carousel_item = {};
   
-  let review = newNode(Object.keys(carousel_data[i])[1], 'carousel-review', i)
-  review.node.innerText = Object.values(carousel_data[i])[1].src
+  let review = new UIComponent(Object.keys(carousel_data[i])[1], 'carousel-review');
+  review.assignId();
+  review.node.innerText = Object.values(carousel_data[i])[1].src;
+  review.setAttribute('style', 'display:none');
+  
+  let img = new UIComponent(Object.keys(carousel_data[i])[0], 'carousel-img');
+  img.assignId();
+  img.setAttribute('src', Object.values(carousel_data[i])[0].src);
+  img.setAttribute('style', 'display:none');
 
-  carouselImgs.appendChild(img.node)
-  carouselReviews.appendChild(review.node)
+  carouselImgs.appendChild(img.get());
+  carouselReviews.appendChild(review.get());
   
-  item.p = review.node
-  item.img = img.node
+  carousel_item.p = review.get();
+  carousel_item.img = img.get();
   
-  carousel.insert(item)
-  
-  let counter = newNode('div', 'counter-item', i)
-  counterRoot.appendChild(counter.node)
-
+  carousel.list.insert(carousel_item);
 }
 
+carousel.createCounter();
+carousel.counter.forEach((el) => {
+  counterRoot.appendChild(el.get())
+})
+
 document.querySelector('.next').addEventListener('click', () => {
-  carousel.next();
-  incrementCounter(carousel.pos);
+  carousel.list.next();
+  incrementCounter(carousel.list.pos);
 });
 
 document.querySelector('.prev').addEventListener('click', () => {
-  carousel.prev();
-  decrementCounter(carousel.pos);
+  carousel.list.prev();
+  decrementCounter(carousel.list.pos);
   // clearInterval(cycle);
 });
 
@@ -233,7 +254,7 @@ let resizeHandler = () => {
 }
 
 toggleNext(0)
-carousel.show()
+carousel.list.show()
 resizeHandler();
 window.onresize = resizeHandler;
 // ====================
