@@ -35,9 +35,6 @@ body{
 p {
   margin-top: 0;
 }
-ul{
-  list-style: none;
-}
 ul > li{
   margin-bottom: 1em;
 }
@@ -47,7 +44,7 @@ ul > li{
 }
 /* buttons */
 button {
-  background: #004f11;
+  background: #004f11 !important;
   border: none;
   border-radius: 7px;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
@@ -67,7 +64,7 @@ button:hover{
   justify-content: space-evenly;
 }
 .c-btn{
-  background-color: rgba(255, 255, 255, 0.594);
+  background-color: rgba(255, 255, 255, 0.594) !important;
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
   border-radius: 100%;
   border: 0px;
@@ -141,15 +138,16 @@ button:hover{
 /* carousel */
 .image-holder {
   position: relative;
-  width: 89%;
 }
-
+.space-between {
+  justify-content: space-between;
+}
 img[id^='carousel-img-'] {
   width: 100%;
   height: auto;
 }
 
-.image-holder .next {
+/* .image-holder .next {
   top: 50%;
   left: 88%;
 }
@@ -157,16 +155,20 @@ img[id^='carousel-img-'] {
 .image-holder .prev {
   top: 50%;
   left: 2%;
-}
+} */
 
-.image-holder .prev, .image-holder .next, #counter {
+.pos-abs, #counter {
   position: absolute;
 }
-
-#root img {
-  height: 287px;
+#arrows {
   width: 100%;
-  max-width: 400px;
+  bottom: 5px;
+  left: 0;
+}
+#root img {
+  /* height: 287px; */
+  /* width: 100%; */
+  /* max-width: 400px; */
   box-shadow: 0 1.1875rem 1.75rem 0.3125rem rgb(64 64 64 / 9%);
 }
 
@@ -206,9 +208,12 @@ img[id^='carousel-img-'] {
   .card-container {
     display: inline-block;
   }
-  #root img {
-    height: 200px;
+  h1, p{
+    text-align: center;
   }
+  /* #root img {
+    height: 200px;
+  } */
   .col-md-1 {width: 8.33%;}
   .col-md-2 {width: 16.66%;}
   .col-md-3 {width: 25%;}
