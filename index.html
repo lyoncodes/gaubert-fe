@@ -3,6 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
@@ -12,28 +13,32 @@
 <body>
   <!-- TOP SECTION -->
   <div class="col-12">
-    <div class="row flex-row center">
+    <div class="row flex-row center pb-12">
       <img class="heading-logo" src="assets/graphics/header-logo.svg">
     </div>
-    <div class="row">
+    <div class="row mt-12">
       <!-- HEADING -->
       <div class="col-md-12 col-6">
-        <h1> Discover Amazing Olympia, Washington </h1>
-        <p>Distinct natural beauty and a vibrant community make Olympia an amazing place to call home. No matter what your path or where you're from, I can help achieve your real estate goals with confidence and peace of mind. I'm proud to offer Thurston County brokerage services rooted in trust and transparency, putting my clients first from start to finish</p>
-        <div class="flex-row center">
-          <button href="">Contact Me</button>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h1 class="font-display text-4xl font-medium tracking-tighter text-black-600 sm:text-5xl"> Discover Amazing Olympia, Washington</h1>
+          <p class="mt-4 font-display text-2xl tracking-tight">Distinct natural beauty and a vibrant community make Olympia an amazing place to call home. No matter what your path or where you're from, I can help achieve your real estate goals with confidence and peace of mind. I'm proud to offer Thurston County brokerage services rooted in trust and transparency, putting my clients first from start to finish</p>
+        </div>
+        <div class="flex-row center mt-10">
+          <button class="inline-flex justify-center rounded-2xl p-4 text-base font-semibold text-white">Contact Me</button>
         </div>
       </div>
       <div class="col-md-1 col-1"></div>
       <!-- CAROUSEL -->
-      <div class="col-md-12 col-4 p-0">
+      <div class="col-md-12 col-4 mt-12 p-0">
         <div id="root">
-          <div id="carousel">
+          <div class="rounded-lg shadow-lg bg-white" id="carousel">
             <div class="flex-row center">
-              <div class="image-holder" id="carousel-imgs">
-                <button class="c-btn prev"></button>
-                <button class="c-btn next"></button>
+              <div class="image-holder relative overflow-hidden bg-no-repeat bg-cover relative overflow-hidden bg-no-repeat bg-cover shadow-lg rounded-lg mx-4 -mt-4" id="carousel-imgs">
                 <div class="flex-row center" id="counter"></div>
+                <div class="flex-row space-between pos-abs px-3" id="arrows">
+                  <button class="c-btn prev"></button>
+                  <button class="c-btn next"></button>
+                </div>
               </div>
             </div>
             <div id="carousel-reviews">
@@ -44,78 +49,59 @@
     </div>
   </div>
   <!-- NEXT SECTION -->
-  <div class="col-md-12">
+  <div class="col-md-12 mt-12 pb-12">
     <div class="flex-row center">
-      <div class="col-md-12 col-6">
+      <div class="col-md-12 col-8">
           <div class="" id="desktop">
-            <div class="flex-row center" id="image-holder">
-              <img class="m-auto" src="assets/graphics/imgs/bg-portrait.jpg" alt="">
+            <div class="col-12" id="image-holder">
+              <img class="m-auto max-w-full h-auto rounded-lg shadow-lg" src="assets/graphics/imgs/bg-portrait.jpg" alt="">
             </div>
             <div>
-              <h1>Why Buy In Thurston County?</h1>
-              <p>Our community provides endless joy, with access to some of the world's best outdoor activities and educational opportunities. When I'm not assisting clients you'll find me spending time with my wife and dog, fly fishing our abundant local waters, or cooking food for friends.</p>
+              <h1 class="font-display text-4xl font-medium tracking-tighter text-black-600 mt-4 sm:text-5xl"> I'm Proud to Call Thurston County Home</h1>
+              <p class="mt-4 font-display text-2xl tracking-tight">Our community provides endless joy, with access to some of the world's best outdoor activities and educational opportunities. When I'm not assisting clients you'll find me spending time with my wife and dog, fly fishing our abundant local waters, or cooking food for friends.</p>
+            </div>
             </div>
           </div>
         </div>
     </div>
   </div>
   <!-- LIST SECTION -->
-  <div class="col-12" id="bg">
-    <h1>Quality Services</h1>
-    <div class="card-container">
+  <div class="col-12 mt-12" id="bg">
+    <h1 class="font-display text-4xl font-medium tracking-tighter text-black-600 mt-4 sm:text-5xl">Quality Services</h1>
+    <div class="card-container mt-6">
       <div class="col-md-12 col-6 card">
-        <h1>Buyers</h1>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Detailed market knowledge to guide your search for the right home or property
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Negotiation skills to help put your most competitive offers forward
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Experienced assistance in navigating inspection, financing, and closing
-          </div>
-        </div>
+        <h3 class="text-2xl font-semibold tracking-tight">Buyers</h3>
+        <ul role="list" class="order-last mt-10 flex flex-col gap-y-3 text-sm">
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Detailed market knowledge to guide your search for the right home or property</span>
+          </li>
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Negotiation skills to help put your most competitive offers forward</span>
+          </li>
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Experienced assistance in navigating inspection, financing, and closing</span>
+          </li>
+        </ul>
       </div>
       <div class="col-md-12 col-6 card">
-        <h1>Sellers</h1>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Professional photography and a detailed marketing strategy for maximizing your home's visability
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Open-house events to generate enthusiasm and interest in your property
-          </div>
-        </div>
-        <div class="flex-row">
-          <div class="col-3">
-            <img class="card-icon" src="assets/graphics/greene-logo.png">
-          </div>
-          <div>
-            Help navigating inspections, offers, review dates, and other transaction logistics.
-          </div>
-        </div>
+        <h3 class="text-2xl font-semibold tracking-tight">Sellers</h3>
+        <ul role="list" class="order-last mt-10 flex flex-col gap-y-3 text-sm">
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Professional photography and a detailed marketing strategy for maximizing your home's visability</span>
+          </li>
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Open-house events to generate enthusiasm and interest in your property</span>
+          </li>
+          <li class="flex">
+            <img class="h-6 w-6" src="assets/graphics/greene-logo.png">
+            <span class="ml-4">Help navigating inspections, offers, review dates, and other transaction logistics</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
