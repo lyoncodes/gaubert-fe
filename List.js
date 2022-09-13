@@ -132,7 +132,7 @@ const carousel_data = [
         src: `${path}backyard.jpeg`
       },
       p: {
-        src: '"Ben is awesome - he has helped me buy and sell 2 homes in Olympia and Ocean Shores. His in-depth knowledge of the South Sound makes him an invaluable resource He\'s a negotiation pro and goes above and beyond in every way  - helping to relocate a massive antique stove, making the trek out to the beach,and navigating details of a house sale and purchase!"'
+        src: '"Ben is awesome - he has helped me buy and sell 2 homes in Olympia and Ocean Shores. His in-depth knowledge of the South Sound makes him an invaluable resource. He\'s a negotiation pro and goes above and beyond in every way  - helping to relocate a massive antique stove, making the trek out to the beach,and navigating details of a house sale and purchase!"'
       }
     },
     {
