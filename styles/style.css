@@ -32,6 +32,9 @@ body{
 .col-12 {width: 100%;}
 
 /* paragraphs and text blocks */
+.title {
+  font-size: 2em;
+}
 p {
   margin-top: 0;
 }
@@ -134,6 +137,9 @@ button:hover{
 .middle{
   align-items: center;
 }
+.bg-light{
+  background-color: #F7F3EA;
+}
 
 /* carousel */
 .image-holder {
@@ -179,7 +185,7 @@ img[id^='carousel-img-'] {
 }
 
 #carousel-reviews {
-  padding: 1em;
+  padding: 1em 1em 2em 1em;
 }
 
 #counter {
@@ -202,6 +208,9 @@ img[id^='carousel-img-'] {
 
 
 @media screen and (max-width: 1250px) {
+  .contact-row {
+    justify-content: center;
+  }
   button{
     width: 60%;
   }
@@ -210,6 +219,9 @@ img[id^='carousel-img-'] {
   }
   h1, p{
     text-align: center;
+  }
+  ul > li > p {
+    text-align: left;
   }
   /* #root img {
     height: 200px;
